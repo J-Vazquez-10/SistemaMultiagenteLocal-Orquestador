@@ -1,12 +1,10 @@
-package com.tasf.prototipo;
-
+package com.tasf.prototipo.Orquestador;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.spring.AiService;
 
 @AiService
 public interface AgenteOrquestador {
     
-    // {{it}} inyecta automáticamente el String que le pases como parámetro
     @UserMessage("{{it}}")
-    String clasificar(String peticion);
+    ClasificacionDTO clasificar(String peticion);
 }
