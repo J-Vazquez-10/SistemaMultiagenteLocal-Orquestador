@@ -18,11 +18,8 @@ public class OrquestadorController {
 
     @PostMapping("/procesar")
     public String procesarPeticion(@RequestBody String prompt) {
-        
-        // 1. El Orquestador evalúa el texto y extrae el DTO
+       
         ClasificacionDTO clasificacion = agenteOrquestador.clasificar(prompt);
-        
-        // 2. El Enrutador toma el control y elige el camino
         return enrutador.enrutarPeticion(prompt, clasificacion);
     }
 }

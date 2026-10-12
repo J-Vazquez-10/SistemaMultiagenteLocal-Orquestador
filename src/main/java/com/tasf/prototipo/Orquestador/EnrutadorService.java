@@ -13,8 +13,6 @@ public class EnrutadorService {
         String departamento = clasificacion.getDepartamento();
         
         switch (departamento) {
-            case "Administración de software":
-                return "[Ruta: Administración] -> Iniciando revisión de credenciales, repositorios o permisos...";
                 
             case "Atención al cliente":
                 return "[Ruta: Atención al Cliente] -> Formulando respuesta de soporte externo...";
@@ -34,7 +32,15 @@ public class EnrutadorService {
                 return "[Ruta: QA] -> Preparando escenario de pruebas y control de calidad...";
                 
             case "Recursos humanos":
-                return "[Ruta: Recursos Humanos] -> Procesando solicitud de personal o nómina...";
+            	String urlMicroservicioRRHH = "http://localhost:8082/api/rrhh/consultar";
+                
+                try {
+                    System.out.println("Redirigiendo petición vía HTTP al Microservicio de Recursos Humanos...");
+                    ResponseEntity<String> respuesta = restTemplate.postForEntity(urlMicroservicioRRHH, prompt, String.class);
+                    return respuesta.getBody();
+                } catch (Exception e) {
+                    return "[Error] El microservicio de Recursos Humanos está apagado o inaccesible: " + e.getMessage();
+                }
                 
             case "Contabilidad":
                 return "[Ruta: Contabilidad] -> Revisando registros financieros o presupuestos...";
