@@ -14,9 +14,6 @@ public class EnrutadorService {
         
         switch (departamento) {
                 
-            case "Atención al cliente":
-                return "[Ruta: Atención al Cliente] -> Formulando respuesta de soporte externo...";
-                
             case "Desarrollo de software":
                 String urlMicroservicioDesarrollo = "http://localhost:8081/api/desarrollo/resolver";
                 
@@ -29,7 +26,15 @@ public class EnrutadorService {
                 }
                 
             case "QA":
-                return "[Ruta: QA] -> Preparando escenario de pruebas y control de calidad...";
+            	String urlMicroservicioQA = "http://localhost:8083/api/qa/auditar";
+                
+                try {
+                    System.out.println("Redirigiendo petición vía HTTP al Microservicio de QA...");
+                    ResponseEntity<String> respuesta = restTemplate.postForEntity(urlMicroservicioQA, prompt, String.class);
+                    return respuesta.getBody();
+                } catch (Exception e) {
+                    return "[Error] El microservicio de QA está apagado o inaccesible: " + e.getMessage();
+                }
                 
             case "Recursos humanos":
             	String urlMicroservicioRRHH = "http://localhost:8082/api/rrhh/consultar";
@@ -41,9 +46,6 @@ public class EnrutadorService {
                 } catch (Exception e) {
                     return "[Error] El microservicio de Recursos Humanos está apagado o inaccesible: " + e.getMessage();
                 }
-                
-            case "Contabilidad":
-                return "[Ruta: Contabilidad] -> Revisando registros financieros o presupuestos...";
                 
             case "No aplicable":
                 return "[Ruta: Bloqueada] -> Petición rechazada. Motivo: " + clasificacion.getMotivo();
