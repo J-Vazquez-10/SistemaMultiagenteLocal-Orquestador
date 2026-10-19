@@ -85,7 +85,8 @@ public class EnrutadorService {
                     return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("[Error] RRHH inaccesible: " + e.getMessage());
                 }
             case "No aplicable":
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                return ResponseEntity.ok()
+                		.header(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE + ";charset=UTF-8")
                         .body("[Ruta: Bloqueada] -> Petición rechazada. Motivo: " + clasificacion.getMotivo());
                 
             default:

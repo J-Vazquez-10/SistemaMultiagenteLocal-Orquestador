@@ -19,8 +19,10 @@
     gap: 16px;
     margin-top: auto;
     padding-bottom: 20px;
+    transition: opacity 0.4s ease-in-out;
 }
 
+/* Estilo base de la burbuja */
 .message {
     max-width: 80%;
     padding: 14px 18px;
@@ -28,8 +30,10 @@
     font-size: 15px;
     line-height: 1.5;
     word-break: break-word;
+    overflow-wrap: break-word;
 }
 
+/* Color y posición de la burbuja del Usuario */
 .message.user {
     align-self: flex-end;
     background-color: #2b3a72;
@@ -37,6 +41,7 @@
     border-bottom-right-radius: 4px;
 }
 
+/* Color y posición de la burbuja del Agente */
 .message.agent {
     align-self: flex-start;
     background-color: #121838;
@@ -45,6 +50,7 @@
     border-bottom-left-radius: 4px;
 }
 
+/* Etiqueta superior del agente (ej. "Agente: Devs") */
 .meta-badge {
     display: inline-block;
     font-size: 11px;
@@ -55,7 +61,21 @@
     color: #ff9d76;
 }
 
-/* Transición suave para revelar los mensajes */
-.messages-list {
-    transition: opacity 0.4s ease-in-out;
+/* Reglas nuevas: Control del formato de código renderizado por marked.js */
+.message.agent pre {
+    max-width: 100%;
+    overflow-x: auto; /* Barra de desplazamiento horizontal independiente */
+    white-space: pre-wrap;
+    word-break: normal;
+    background-color: #0b0f28;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.message.agent code {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 14px;
 }
